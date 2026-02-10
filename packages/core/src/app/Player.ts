@@ -219,6 +219,50 @@ export class Player {
   }
 
   /**
+   * Set the player size responsively based on container dimensions and target aspect ratio.
+   * This maintains the aspect ratio with letterboxing if needed.
+   *
+   * @param containerWidth - The width of the container
+   * @param containerHeight - The height of the container
+   * @param aspectRatio - The target aspect ratio as a string (e.g., '16:9', '9:16', '1:1')
+   */
+  public setResponsiveSize(
+    containerWidth: number,
+    containerHeight: number,
+    aspectRatio: string,
+  ) {
+    const [w, h] = aspectRatio.split(':').map(Number);
+    if (!w || !h) {
+      this.logger.warn(`Invalid aspect ratio: ${aspectRatio}`);
+      return;
+    }
+
+    const targetRatio = w / h;
+    const containerRatio = containerWidth / containerHeight;
+
+    let finalWidth: number;
+    let finalHeight: number;
+
+    if (containerRatio > targetRatio) {
+      // Container is wider - fit to height
+      finalHeight = containerHeight;
+      finalWidth = containerHeight * targetRatio;
+    } else {
+      // Container is taller - fit to width
+      finalWidth = containerWidth;
+      finalHeight = containerWidth / targetRatio;
+    }
+
+    this.configure({
+      range: [this.startTime, this.endTime],
+      fps: this.playback.fps,
+      size: new Vector2(finalWidth, finalHeight),
+      audioOffset: 0,
+      resolutionScale: this.resolutionScale,
+    });
+  }
+
+  /**
    * Whether the given frame is inside the animation range.
    *
    * @param frame - The frame to check.
