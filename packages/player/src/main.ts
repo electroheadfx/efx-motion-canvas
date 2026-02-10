@@ -21,7 +21,17 @@ enum State {
 
 class MotionCanvasPlayer extends HTMLElement {
   public static get observedAttributes() {
-    return ['src', 'quality', 'width', 'height', 'auto', 'variables'];
+    return [
+      'src',
+      'quality',
+      'width',
+      'height',
+      'auto',
+      'variables',
+      'responsive',
+      'aspect-ratio',
+      'fullscreen',
+    ];
   }
 
   private get auto() {
@@ -58,10 +68,26 @@ class MotionCanvasPlayer extends HTMLElement {
     }
   }
 
+  private get responsive() {
+    return this.hasAttribute('responsive');
+  }
+
+  private get aspectRatio() {
+    const attr = this.getAttribute('aspect-ratio');
+    if (!attr) return null;
+    const [width, height] = attr.split(':').map(Number);
+    return width && height ? width / height : null;
+  }
+
+  private get fullscreen() {
+    return this.hasAttribute('fullscreen');
+  }
+
   private readonly root: ShadowRoot;
   private readonly canvas: HTMLCanvasElement;
   private readonly overlay: HTMLCanvasElement;
   private readonly button: HTMLDivElement;
+  private readonly fullscreenButton: HTMLButtonElement;
 
   private state = State.Initial;
   private project: Project | null = null;
@@ -81,6 +107,7 @@ class MotionCanvasPlayer extends HTMLElement {
 
     this.overlay = this.root.querySelector('.overlay');
     this.button = this.root.querySelector('.button');
+    this.fullscreenButton = this.root.querySelector('.fullscreen-button');
     this.canvas = this.stage.finalBuffer;
     this.canvas.classList.add('canvas');
     this.root.prepend(this.canvas);
@@ -89,7 +116,10 @@ class MotionCanvasPlayer extends HTMLElement {
     this.overlay.addEventListener('mousemove', this.handleMouseMove);
     this.overlay.addEventListener('mouseleave', this.handleMouseLeave);
     this.button.addEventListener('mousedown', this.handleMouseDown);
+    this.fullscreenButton.addEventListener('click', this.handleFullscreenClick);
 
+    this.updateResponsiveMode();
+    this.updateFullscreenMode();
     this.setState(State.Initial);
   }
 
@@ -122,6 +152,37 @@ class MotionCanvasPlayer extends HTMLElement {
   private handleMouseDown = (e: MouseEvent) => {
     e.preventDefault();
   };
+
+  private handleFullscreenClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    this.toggleFullscreen();
+  };
+
+  private toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      this.requestFullscreen().catch(err => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  private updateResponsiveMode() {
+    if (this.responsive) {
+      this.dataset.responsive = '';
+    } else {
+      delete this.dataset.responsive;
+    }
+  }
+
+  private updateFullscreenMode() {
+    if (this.fullscreen) {
+      this.dataset.fullscreenEnabled = '';
+    } else {
+      delete this.dataset.fullscreenEnabled;
+    }
+  }
 
   private handleClick = () => {
     if (this.auto) return;
@@ -227,6 +288,16 @@ class MotionCanvasPlayer extends HTMLElement {
         break;
       case 'variables':
         this.player?.setVariables(this.variables);
+        break;
+      case 'responsive':
+        this.updateResponsiveMode();
+        break;
+      case 'aspect-ratio':
+        this.updateSettings();
+        break;
+      case 'fullscreen':
+        this.updateFullscreenMode();
+        break;
     }
   }
 
@@ -252,9 +323,24 @@ class MotionCanvasPlayer extends HTMLElement {
   };
 
   private updateSettings() {
+    let width = this.width;
+    let height = this.height;
+
+    // Apply aspect ratio if specified and responsive mode is enabled
+    if (this.responsive && this.aspectRatio) {
+      const currentRatio = width / height;
+      if (currentRatio > this.aspectRatio) {
+        // Width is too large, adjust based on height
+        width = height * this.aspectRatio;
+      } else {
+        // Height is too large, adjust based on width
+        height = width / this.aspectRatio;
+      }
+    }
+
     const settings = {
       ...this.defaultSettings,
-      size: new Vector2(this.width, this.height),
+      size: new Vector2(width, height),
       resolutionScale: this.quality,
     };
     this.stage.configure(settings);
