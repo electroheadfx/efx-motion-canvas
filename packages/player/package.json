@@ -25,6 +25,8 @@
     "@efxlab/motion-canvas-core": "workspace:*",
     "@types/node": "^18.19.130",
     "sass": "^1.58.0",
-    "terser": "^5.16.1"
+    "terser": "^5.16.1",
+    "typescript": "^5.9.3",
+    "vite": "^4.5.14"
   }
 }
