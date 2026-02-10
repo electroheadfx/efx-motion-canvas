@@ -60,8 +60,8 @@ export function projectsPlugin({
 ${imports.join('\n')}
 import {${
         runsInEditor ? 'editorBootstrap' : 'bootstrap'
-      }} from '@motion-canvas/core';
-import {MetaFile} from '@motion-canvas/core';
+      }} from '@efxlab/motion-canvas-core';
+import {MetaFile} from '@efxlab/motion-canvas-core';
         import metaFile from './${metaFile}';
         import config from './${name}';
         import settings from 'virtual:settings.meta';
@@ -95,7 +95,7 @@ import {MetaFile} from '@motion-canvas/core';
         },
         esbuild: {
           jsx: 'automatic',
-          jsxImportSource: '@motion-canvas/2d/lib',
+          jsxImportSource: '@efxlab/motion-canvas-2d/lib',
         },
         optimizeDeps: {
           entries: projects.map(project => project.filePath),

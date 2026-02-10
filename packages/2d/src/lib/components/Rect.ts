@@ -5,7 +5,7 @@ import {
   SignalValue,
   SimpleSignal,
   SpacingSignal,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {getRectProfile} from '../curves/getRectProfile';
 import {computed, initial, nodeName, signal} from '../decorators';
 import {spacingSignal} from '../decorators/spacingSignal';
@@ -71,7 +71,7 @@ export class Rect extends Curve {
    * ```
    */
   @spacingSignal('radius')
-  public declare readonly radius: SpacingSignal<this>;
+  declare public readonly radius: SpacingSignal<this>;
 
   /**
    * Enables corner smoothing.
@@ -98,7 +98,7 @@ export class Rect extends Curve {
    */
   @initial(false)
   @signal()
-  public declare readonly smoothCorners: SimpleSignal<boolean, this>;
+  declare public readonly smoothCorners: SimpleSignal<boolean, this>;
 
   /**
    * Controls the sharpness of {@link smoothCorners}.
@@ -122,7 +122,7 @@ export class Rect extends Curve {
    */
   @initial(0.6)
   @signal()
-  public declare readonly cornerSharpness: SimpleSignal<number, this>;
+  declare public readonly cornerSharpness: SimpleSignal<number, this>;
 
   public constructor(props: RectProps) {
     super(props);

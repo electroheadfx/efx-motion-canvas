@@ -6,7 +6,7 @@ import {
   colorSignal,
   initial,
   signal,
-} from '@motion-canvas/2d';
+} from '@efxlab/motion-canvas-2d';
 import {
   Color,
   ColorSignal,
@@ -18,7 +18,7 @@ import {
   createSignal,
   easeInOutCubic,
   tween,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 
 export interface SwitchProps extends NodeProps {
   initialState?: SignalValue<boolean>;
@@ -28,11 +28,11 @@ export interface SwitchProps extends NodeProps {
 export class Switch extends Node {
   @initial(false)
   @signal()
-  public declare readonly initialState: SimpleSignal<boolean, this>;
+  declare public readonly initialState: SimpleSignal<boolean, this>;
 
   @initial('#68ABDF')
   @colorSignal()
-  public declare readonly accent: ColorSignal<this>;
+  declare public readonly accent: ColorSignal<this>;
 
   private isOn: boolean;
   private readonly indicatorPosition = createSignal(0);

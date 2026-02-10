@@ -1,4 +1,4 @@
-import {Stage} from '@motion-canvas/core';
+import {Stage} from '@efxlab/motion-canvas-core';
 import {JSX} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 import {useApplication} from '../../contexts';

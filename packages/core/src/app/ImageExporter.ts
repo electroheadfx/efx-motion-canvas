@@ -29,7 +29,7 @@ interface ServerResponse {
  * @internal
  */
 export class ImageExporter implements Exporter {
-  public static readonly id = '@motion-canvas/core/image-sequence';
+  public static readonly id = '@efxlab/motion-canvas-core/image-sequence';
   public static readonly displayName = 'Image sequence';
 
   public static meta() {

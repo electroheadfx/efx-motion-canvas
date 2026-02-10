@@ -1,4 +1,4 @@
-import type {ReferenceReceiver} from '@motion-canvas/core';
+import type {ReferenceReceiver} from '@efxlab/motion-canvas-core';
 import type {Node} from './Node';
 
 export type ComponentChild =

@@ -1,4 +1,8 @@
-import {Plugin, PLUGIN_OPTIONS, PluginConfig} from '@motion-canvas/vite-plugin';
+import {
+  Plugin,
+  PLUGIN_OPTIONS,
+  PluginConfig,
+} from '@efxlab/motion-canvas-vite-plugin';
 import {FFmpegBridge} from './FFmpegBridge';
 
 export default (): Plugin => {
@@ -6,7 +10,7 @@ export default (): Plugin => {
   return {
     name: 'motion-canvas/ffmpeg',
     [PLUGIN_OPTIONS]: {
-      entryPoint: '@motion-canvas/ffmpeg/lib/client',
+      entryPoint: '@efxlab/motion-canvas-ffmpeg/lib/client',
       async config(value) {
         config = value;
       },

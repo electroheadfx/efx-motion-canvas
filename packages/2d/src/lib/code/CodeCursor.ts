@@ -5,7 +5,7 @@ import {
   SerializedVector2,
   unwrap,
   Vector2,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {Code} from '../components';
 import {CodeFragment, parseCodeFragment} from './CodeFragment';
 import {CodeHighlighter} from './CodeHighlighter';

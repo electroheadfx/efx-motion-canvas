@@ -4,7 +4,7 @@ import {
   SignalValue,
   SimpleSignal,
   transformScalar,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 
 /**
  * All possible CSS filter names.

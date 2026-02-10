@@ -8,7 +8,7 @@ import {
   all,
   capitalize,
   threadable,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {computed, initial, nodeName, signal} from '../decorators';
 import {is} from '../utils';
 import {Node} from './Node';
@@ -58,7 +58,7 @@ export class Txt extends Shape {
 
   @initial('')
   @signal()
-  public declare readonly text: SimpleSignal<string, this>;
+  declare public readonly text: SimpleSignal<string, this>;
 
   protected getText(): string {
     return this.innerText();

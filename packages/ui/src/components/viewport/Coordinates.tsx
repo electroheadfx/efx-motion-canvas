@@ -1,4 +1,4 @@
-import {isInspectable, Vector2} from '@motion-canvas/core';
+import {isInspectable, Vector2} from '@efxlab/motion-canvas-core';
 import {useEffect, useState} from 'react';
 import {
   useShortcut,

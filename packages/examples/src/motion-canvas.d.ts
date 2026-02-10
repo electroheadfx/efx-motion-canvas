@@ -1,1 +1,1 @@
-/// <reference types="@motion-canvas/core/project" />
+/// <reference types="@efxlab/motion-canvas-core/project" />

@@ -1,3 +1,3 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/// <reference types="@motion-canvas/core/project" />
-/// <reference types="@motion-canvas/internal" />
+/// <reference types="@efxlab/motion-canvas-core/project" />
+/// <reference types="@efxlab/motion-canvas-internal" />

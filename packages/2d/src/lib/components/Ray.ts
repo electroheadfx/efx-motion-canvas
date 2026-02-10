@@ -3,7 +3,7 @@ import {
   PossibleVector2,
   SignalValue,
   Vector2Signal,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {CurveProfile, LineSegment} from '../curves';
 import {nodeName, vector2Signal} from '../decorators';
 import {arc, drawLine, drawPivot} from '../utils';
@@ -30,9 +30,9 @@ export interface RayProps extends CurveProps {
  *
  * @preview
  * ```tsx editor
- * import {makeScene2D} from '@motion-canvas/2d';
- * import {Ray} from '@motion-canvas/2d';
- * import {createRef} from '@motion-canvas/core';
+ * import {makeScene2D} from '@efxlab/motion-canvas-2d';
+ * import {Ray} from '@efxlab/motion-canvas-2d';
+ * import {createRef} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const ray = createRef<Ray>();
@@ -59,13 +59,13 @@ export class Ray extends Curve {
    * The starting point of the ray.
    */
   @vector2Signal('from')
-  public declare readonly from: Vector2Signal<this>;
+  declare public readonly from: Vector2Signal<this>;
 
   /**
    * The ending point of the ray.
    */
   @vector2Signal('to')
-  public declare readonly to: Vector2Signal<this>;
+  declare public readonly to: Vector2Signal<this>;
 
   public constructor(props: RayProps) {
     super(props);

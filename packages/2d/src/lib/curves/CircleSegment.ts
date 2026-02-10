@@ -1,4 +1,4 @@
-import {Vector2, clamp} from '@motion-canvas/core';
+import {Vector2, clamp} from '@efxlab/motion-canvas-core';
 import {CurvePoint} from './CurvePoint';
 import {Segment} from './Segment';
 

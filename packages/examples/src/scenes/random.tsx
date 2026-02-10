@@ -1,4 +1,4 @@
-import {Layout, Rect, makeScene2D} from '@motion-canvas/2d';
+import {Layout, Rect, makeScene2D} from '@efxlab/motion-canvas-2d';
 import {
   all,
   loop,
@@ -6,7 +6,7 @@ import {
   range,
   sequence,
   useRandom,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 
 export default makeScene2D(function* (view) {
   // highlight-next-line

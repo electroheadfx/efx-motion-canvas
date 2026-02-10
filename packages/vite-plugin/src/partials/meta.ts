@@ -24,7 +24,7 @@ export function metaPlugin(): Plugin {
 
       /* language=typescript */
       return `\
-import {MetaFile} from '@motion-canvas/core';
+import {MetaFile} from '@efxlab/motion-canvas-core';
 let meta;
 if (import.meta.hot) {
   meta = import.meta.hot.data.meta;

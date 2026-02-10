@@ -1,6 +1,10 @@
 import styles from './Sidebar.module.scss';
 
-import {getTaskName, isThreadable, type Thread} from '@motion-canvas/core';
+import {
+  getTaskName,
+  isThreadable,
+  type Thread,
+} from '@efxlab/motion-canvas-core';
 import {
   useCurrentFrame,
   useCurrentScene,

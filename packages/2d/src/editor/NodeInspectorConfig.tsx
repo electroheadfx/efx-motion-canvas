@@ -9,7 +9,7 @@ import {
   UnknownField,
   findAndOpenFirstUserFile,
   useApplication,
-} from '@motion-canvas/ui';
+} from '@efxlab/motion-canvas-ui';
 import {useComputed} from '@preact/signals';
 import {NodeInspectorKey, usePluginState} from './Provider';
 

@@ -1,5 +1,5 @@
-import {Circle, Layout, Rect, makeScene2D} from '@motion-canvas/2d';
-import {all, createRef} from '@motion-canvas/core';
+import {Circle, Layout, Rect, makeScene2D} from '@efxlab/motion-canvas-2d';
+import {all, createRef} from '@efxlab/motion-canvas-core';
 
 const RED = '#ff6470';
 

@@ -1,1 +1,1 @@
-export const DEFAULT = Symbol.for('@motion-canvas/core/signals/default');
+export const DEFAULT = Symbol.for('@efxlab/motion-canvas-core/signals/default');

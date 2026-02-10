@@ -1,4 +1,4 @@
-import {PluginConfig} from '@motion-canvas/vite-plugin';
+import {PluginConfig} from '@efxlab/motion-canvas-vite-plugin';
 import {ServerResponse} from 'node:http';
 import {Connect, ViteDevServer} from 'vite';
 import {

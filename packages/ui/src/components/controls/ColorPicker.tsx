@@ -1,6 +1,6 @@
 import {JSX, Ref} from 'preact';
 
-import {Color} from '@motion-canvas/core';
+import {Color} from '@efxlab/motion-canvas-core';
 import {hsv} from 'chroma-js';
 import {forwardRef} from 'preact/compat';
 import {useEffect, useRef, useState} from 'preact/hooks';

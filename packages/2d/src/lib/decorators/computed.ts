@@ -1,4 +1,4 @@
-import {createComputed} from '@motion-canvas/core';
+import {createComputed} from '@efxlab/motion-canvas-core';
 import {addInitializer} from './initializers';
 
 /**

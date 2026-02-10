@@ -8,12 +8,12 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@motion-canvas/core": "*",
-    "@motion-canvas/2d": "*"
+    "@efxlab/motion-canvas-core": "*",
+    "@efxlab/motion-canvas-2d": "*"
   },
   "devDependencies": {
-    "@motion-canvas/ui": "*",
-    "@motion-canvas/vite-plugin": "*",
+    "@efxlab/motion-canvas-ui": "*",
+    "@efxlab/motion-canvas-vite-plugin": "*",
     "vite": "^4.0.0"
   }
 }

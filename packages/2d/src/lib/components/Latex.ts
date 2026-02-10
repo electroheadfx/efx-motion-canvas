@@ -8,7 +8,7 @@ import {
   TimingFunction,
   useLogger,
   Vector2,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {liteAdaptor} from 'mathjax-full/js/adaptors/liteAdaptor';
 import {RegisterHTMLHandler} from 'mathjax-full/js/handlers/html';
 import {TeX} from 'mathjax-full/js/input/tex';
@@ -46,8 +46,8 @@ export interface LatexProps extends Omit<SVGProps, 'svg'> {
  *
  * @preview
  * ```tsx editor
- * import {Latex, makeScene2D} from '@motion-canvas/2d';
- * import {createRef, waitFor} from '@motion-canvas/core';
+ * import {Latex, makeScene2D} from '@efxlab/motion-canvas-2d';
+ * import {createRef, waitFor} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const tex = createRef<Latex>();
@@ -78,7 +78,7 @@ export class Latex extends SVGNode {
 
   @initial({})
   @signal()
-  public declare readonly options: SimpleSignal<OptionList, this>;
+  declare public readonly options: SimpleSignal<OptionList, this>;
 
   @initial('')
   @parser(function (this: SVGNode, value: string[] | string): string[] {
@@ -91,7 +91,7 @@ export class Latex extends SVGNode {
       .filter(sub => sub.trim().length > 0);
   })
   @signal()
-  public declare readonly tex: Signal<string[] | string, string[], this>;
+  declare public readonly tex: Signal<string[] | string, string[], this>;
 
   public constructor(props: LatexProps) {
     super({

@@ -1,4 +1,4 @@
-import {BBox, Vector2} from '@motion-canvas/core';
+import {BBox, Vector2} from '@efxlab/motion-canvas-core';
 
 import {Polynomial} from './Polynomial';
 

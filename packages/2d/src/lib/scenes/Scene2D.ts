@@ -9,7 +9,7 @@ import {
   ThreadGeneratorFactory,
   Vector2,
   useLogger,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {Camera, Node, View2D} from '../components';
 import {is} from '../utils';
 

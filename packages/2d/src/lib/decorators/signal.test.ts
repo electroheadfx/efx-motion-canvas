@@ -1,4 +1,4 @@
-import {DEFAULT, SimpleSignal} from '@motion-canvas/core';
+import {DEFAULT, SimpleSignal} from '@efxlab/motion-canvas-core';
 import {beforeEach, describe, expect, test, vi} from 'vitest';
 import {initial, initializeSignals, parser, signal} from './signal';
 
@@ -11,11 +11,11 @@ class Owner {
   @initial(2.2)
   @parser((value: number) => Math.round(value))
   @signal()
-  public declare readonly integer: SimpleSignal<number>;
+  declare public readonly integer: SimpleSignal<number>;
 
   @initial(0)
   @signal()
-  public declare readonly custom: SimpleSignal<number>;
+  declare public readonly custom: SimpleSignal<number>;
   public getCustom() {
     return 4;
   }

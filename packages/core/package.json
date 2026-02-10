@@ -1,5 +1,5 @@
 {
-  "name": "@motion-canvas/core",
+  "name": "@efxlab/motion-canvas-core",
   "version": "3.17.2",
   "description": "Web-based tool for creating animations programmatically",
   "main": "lib/index.js",
@@ -16,7 +16,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/motion-canvas/motion-canvas.git"
+    "url": "https://github.com/electroheadfx/efx-motion-canvas.git"
   },
   "files": [
     "lib",
@@ -29,8 +29,9 @@
     "chroma-js": "2.4.2"
   },
   "devDependencies": {
-    "@motion-canvas/internal": "0.0.0",
+    "@efxlab/motion-canvas-internal": "workspace:*",
     "jsdom": "^22.1.0",
+    "ts-patch": "^3.3.0",
     "vitest": "^0.34.6"
   }
 }

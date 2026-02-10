@@ -1,5 +1,5 @@
-import {Latex, makeScene2D} from '@motion-canvas/2d';
-import {createRef, waitFor} from '@motion-canvas/core';
+import {Latex, makeScene2D} from '@efxlab/motion-canvas-2d';
+import {createRef, waitFor} from '@efxlab/motion-canvas-core';
 
 export default makeScene2D(function* (view) {
   const tex = createRef<Latex>();

@@ -1,4 +1,4 @@
-import type {BoolMetaField} from '@motion-canvas/core';
+import type {BoolMetaField} from '@efxlab/motion-canvas-core';
 import {useSubscribableValue} from '../../hooks';
 import {Checkbox} from '../controls';
 import {MetaFieldGroup} from './MetaFieldGroup';

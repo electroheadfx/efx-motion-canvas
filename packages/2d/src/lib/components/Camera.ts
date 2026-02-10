@@ -14,7 +14,7 @@ import {
   tween,
   unwrap,
   Vector2,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {cloneable, signal} from '../decorators';
 import {Curve} from './Curve';
 import {Node, NodeProps} from './Node';
@@ -37,8 +37,8 @@ export interface CameraProps extends NodeProps {
  *
  * @preview
  * ```tsx editor
- * import {Camera, Circle, makeScene2D, Rect} from '@motion-canvas/2d';
- * import {all, createRef} from '@motion-canvas/core';
+ * import {Camera, Circle, makeScene2D, Rect} from '@efxlab/motion-canvas-2d';
+ * import {all, createRef} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const camera = createRef<Camera>();
@@ -79,7 +79,7 @@ export class Camera extends Node {
    * The scene node that the camera is rendering.
    */
   @signal()
-  public declare readonly scene: SimpleSignal<Node, this>;
+  declare public readonly scene: SimpleSignal<Node, this>;
 
   public constructor({children, ...props}: CameraProps) {
     super(props);
@@ -100,7 +100,7 @@ export class Camera extends Node {
    */
   @cloneable(false)
   @signal()
-  public declare readonly zoom: SimpleSignal<number, this>;
+  declare public readonly zoom: SimpleSignal<number, this>;
 
   protected getZoom(): number {
     return 1 / this.scale.x();

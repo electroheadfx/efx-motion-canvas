@@ -10,7 +10,7 @@ import {
   Vector2,
   useLogger,
   viaProxy,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {computed, initial, nodeName, signal} from '../decorators';
 import {DesiredLength} from '../partials';
 import {drawImage} from '../utils';
@@ -37,10 +37,10 @@ export interface ImgProps extends RectProps {
  *
  * @preview
  * ```tsx editor
- * import {Img} from '@motion-canvas/2d';
- * import {all, waitFor} from '@motion-canvas/core';
- * import {createRef} from '@motion-canvas/core';
- * import {makeScene2D} from '@motion-canvas/2d';
+ * import {Img} from '@efxlab/motion-canvas-2d';
+ * import {all, waitFor} from '@efxlab/motion-canvas-core';
+ * import {createRef} from '@efxlab/motion-canvas-core';
+ * import {makeScene2D} from '@efxlab/motion-canvas-2d';
  *
  * export default makeScene2D(function* (view) {
  *   const ref = createRef<Img>();
@@ -97,7 +97,7 @@ export class Img extends Rect {
    * ```
    */
   @signal()
-  public declare readonly src: SimpleSignal<string, this>;
+  declare public readonly src: SimpleSignal<string, this>;
 
   /**
    * The alpha value of this image.
@@ -108,7 +108,7 @@ export class Img extends Rect {
    */
   @initial(1)
   @signal()
-  public declare readonly alpha: SimpleSignal<number, this>;
+  declare public readonly alpha: SimpleSignal<number, this>;
 
   /**
    * Whether the image should be smoothed.
@@ -121,7 +121,7 @@ export class Img extends Rect {
    */
   @initial(true)
   @signal()
-  public declare readonly smoothing: SimpleSignal<boolean, this>;
+  declare public readonly smoothing: SimpleSignal<boolean, this>;
 
   public constructor(props: ImgProps) {
     super(props);

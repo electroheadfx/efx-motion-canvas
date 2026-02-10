@@ -1,4 +1,4 @@
-import {Vector2, clamp, remap} from '@motion-canvas/core';
+import {Vector2, clamp, remap} from '@efxlab/motion-canvas-core';
 import {CurvePoint} from './CurvePoint';
 import {PolynomialSegment} from './PolynomialSegment';
 

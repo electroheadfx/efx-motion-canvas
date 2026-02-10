@@ -1,5 +1,5 @@
 {
-  "name": "@motion-canvas/template",
+  "name": "@efxlab/motion-canvas-template",
   "private": true,
   "version": "0.0.0",
   "description": "Basic project template for Motion Canvas",
@@ -11,11 +11,11 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "@motion-canvas/core": "*",
-    "@motion-canvas/2d": "*"
+    "@efxlab/motion-canvas-core": "workspace:*",
+    "@efxlab/motion-canvas-2d": "workspace:*"
   },
   "devDependencies": {
-    "@motion-canvas/ui": "*",
-    "@motion-canvas/vite-plugin": "*"
+    "@efxlab/motion-canvas-ui": "workspace:*",
+    "@efxlab/motion-canvas-vite-plugin": "workspace:*"
   }
 }

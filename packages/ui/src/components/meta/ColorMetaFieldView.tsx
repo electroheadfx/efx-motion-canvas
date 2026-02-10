@@ -1,4 +1,4 @@
-import type {ColorMetaField} from '@motion-canvas/core';
+import type {ColorMetaField} from '@efxlab/motion-canvas-core';
 import {useState} from 'preact/hooks';
 import {useSubscribableValue} from '../../hooks';
 import {ColorInput} from '../controls';

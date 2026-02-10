@@ -1,5 +1,10 @@
-import {Circle, makeScene2D} from '@motion-canvas/2d';
-import {createRef, easeInOutCubic, map, tween} from '@motion-canvas/core';
+import {Circle, makeScene2D} from '@efxlab/motion-canvas-2d';
+import {
+  createRef,
+  easeInOutCubic,
+  map,
+  tween,
+} from '@efxlab/motion-canvas-core';
 
 export default makeScene2D(function* (view) {
   const circle = createRef<Circle>();

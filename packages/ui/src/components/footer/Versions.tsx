@@ -16,7 +16,7 @@ export function Versions() {
 
   useEffect(() => {
     const abort = new AbortController();
-    fetch('https://registry.npmjs.org/@motion-canvas/core/latest', {
+    fetch('https://registry.npmjs.org/@efxlab/motion-canvas-core/latest', {
       signal: abort.signal,
     })
       .then(response => response.json())

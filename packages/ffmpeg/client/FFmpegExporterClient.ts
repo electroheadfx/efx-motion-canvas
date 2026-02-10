@@ -5,14 +5,14 @@ import type {
   RendererResult,
   RendererSettings,
   Sound,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {
   BoolMetaField,
   EventDispatcher,
   NumberMetaField,
   ObjectMetaField,
   ValueOf,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 
 type ServerResponse =
   | {
@@ -54,7 +54,7 @@ const EXPORT_RETRY_DELAY = 1000;
  * initialized by invoking `start`.
  */
 export class FFmpegExporterClient implements Exporter {
-  public static readonly id = '@motion-canvas/ffmpeg';
+  public static readonly id = '@efxlab/motion-canvas-ffmpeg';
   public static readonly displayName = 'Video (FFmpeg)';
 
   public static meta(project: Project): MetaField<any> {

@@ -37,7 +37,7 @@ export interface PluginConfig {
 }
 
 export const PLUGIN_OPTIONS = Symbol.for(
-  '@motion-canvas/vite-plugin/PLUGIN_OPTIONS',
+  '@efxlab/motion-canvas-vite-plugin/PLUGIN_OPTIONS',
 );
 
 export interface PluginOptions {

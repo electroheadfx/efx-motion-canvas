@@ -1,5 +1,12 @@
-import {Camera, Circle, Grid, Node, Rect, makeScene2D} from '@motion-canvas/2d';
-import {all, createRef} from '@motion-canvas/core';
+import {
+  Camera,
+  Circle,
+  Grid,
+  Node,
+  Rect,
+  makeScene2D,
+} from '@efxlab/motion-canvas-2d';
+import {all, createRef} from '@efxlab/motion-canvas-core';
 
 export default makeScene2D(function* (view) {
   const camera = createRef<Camera>();

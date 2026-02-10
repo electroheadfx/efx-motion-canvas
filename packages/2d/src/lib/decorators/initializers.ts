@@ -1,4 +1,6 @@
-const INITIALIZERS = Symbol.for('@motion-canvas/2d/decorators/initializers');
+const INITIALIZERS = Symbol.for(
+  '@efxlab/motion-canvas-2d/decorators/initializers',
+);
 
 export type Initializer<T> = (instance: T, context?: any) => void;
 

@@ -1,4 +1,8 @@
-import {PossibleVector2, SignalValue, Vector2Signal} from '@motion-canvas/core';
+import {
+  PossibleVector2,
+  SignalValue,
+  Vector2Signal,
+} from '@efxlab/motion-canvas-core';
 import {QuadBezierSegment} from '../curves';
 import {PolynomialSegment} from '../curves/PolynomialSegment';
 import {computed, vector2Signal} from '../decorators';
@@ -25,8 +29,8 @@ export interface QuadBezierProps extends CurveProps {
  *
  * @preview
  * ```tsx editor
- * import {makeScene2D, QuadBezier} from '@motion-canvas/2d';
- * import {createRef} from '@motion-canvas/core';
+ * import {makeScene2D, QuadBezier} from '@efxlab/motion-canvas-2d';
+ * import {createRef} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const bezier = createRef<QuadBezier>();
@@ -53,19 +57,19 @@ export class QuadBezier extends Bezier {
    * The start point of the Bézier curve.
    */
   @vector2Signal('p0')
-  public declare readonly p0: Vector2Signal<this>;
+  declare public readonly p0: Vector2Signal<this>;
 
   /**
    * The control point of the Bézier curve.
    */
   @vector2Signal('p1')
-  public declare readonly p1: Vector2Signal<this>;
+  declare public readonly p1: Vector2Signal<this>;
 
   /**
    * The end point of the Bézier curve.
    */
   @vector2Signal('p2')
-  public declare readonly p2: Vector2Signal<this>;
+  declare public readonly p2: Vector2Signal<this>;
 
   public constructor(props: QuadBezierProps) {
     super(props);

@@ -8,7 +8,7 @@ import {
   TimingFunction,
   tween,
   Vector2,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {CurveProfile} from '../curves';
 import {createCurveProfileLerp} from '../curves/createCurveProfileLerp';
 import {getPathProfile} from '../curves/getPathProfile';
@@ -23,7 +23,7 @@ export interface PathProps extends CurveProps {
 export class Path extends Curve {
   private currentProfile = createSignal<CurveProfile | null>(null);
   @signal()
-  public declare readonly data: SimpleSignal<string, this>;
+  declare public readonly data: SimpleSignal<string, this>;
 
   public constructor(props: PathProps) {
     super(props);

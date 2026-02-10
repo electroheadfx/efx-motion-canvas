@@ -5,7 +5,7 @@ import {
   ProjectMetadata,
   Renderer,
   SettingsMetadata,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {Signal, useSignal} from '@preact/signals';
 import {ComponentChildren, createContext} from 'preact';
 import {useContext, useRef} from 'preact/hooks';

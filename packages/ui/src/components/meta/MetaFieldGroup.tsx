@@ -1,4 +1,4 @@
-import type {MetaField} from '@motion-canvas/core';
+import type {MetaField} from '@efxlab/motion-canvas-core';
 import type {ComponentChildren} from 'preact';
 import {useMemo} from 'preact/hooks';
 import {Group, Label} from '../controls';

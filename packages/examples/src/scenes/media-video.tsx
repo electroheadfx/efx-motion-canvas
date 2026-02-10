@@ -1,5 +1,5 @@
-import {Video, makeScene2D} from '@motion-canvas/2d';
-import {createRef} from '@motion-canvas/core';
+import {Video, makeScene2D} from '@efxlab/motion-canvas-2d';
+import {createRef} from '@efxlab/motion-canvas-core';
 
 import exampleMp4 from '@motion-canvas/examples/assets/example.mp4';
 

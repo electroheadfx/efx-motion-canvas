@@ -1,4 +1,4 @@
-import {makeScene2D, Rect} from '@motion-canvas/2d';
+import {makeScene2D, Rect} from '@efxlab/motion-canvas-2d';
 
 export default makeScene2D(function* (view) {
   view.add(

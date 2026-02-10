@@ -1,4 +1,4 @@
-import {PlaybackState, SimpleSignal, lazy} from '@motion-canvas/core';
+import {PlaybackState, SimpleSignal, lazy} from '@efxlab/motion-canvas-core';
 import {initial, signal} from '../decorators';
 import {nodeName} from '../decorators/nodeName';
 import {useScene2D} from '../scenes/useScene2D';
@@ -31,14 +31,14 @@ export class View2D extends Rect {
 
   @initial(PlaybackState.Paused)
   @signal()
-  public declare readonly playbackState: SimpleSignal<PlaybackState, this>;
+  declare public readonly playbackState: SimpleSignal<PlaybackState, this>;
 
   @initial(0)
   @signal()
-  public declare readonly globalTime: SimpleSignal<number, this>;
+  declare public readonly globalTime: SimpleSignal<number, this>;
 
   @signal()
-  public declare readonly assetHash: SimpleSignal<string, this>;
+  declare public readonly assetHash: SimpleSignal<string, this>;
 
   public constructor(props: View2DProps) {
     super({

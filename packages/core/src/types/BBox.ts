@@ -26,7 +26,9 @@ export type RectSignal<T> = CompoundSignal<
 >;
 
 export class BBox implements Type, WebGLConvertible {
-  public static readonly symbol = Symbol.for('@motion-canvas/core/types/Rect');
+  public static readonly symbol = Symbol.for(
+    '@efxlab/motion-canvas-core/types/Rect',
+  );
 
   public x = 0;
   public y = 0;

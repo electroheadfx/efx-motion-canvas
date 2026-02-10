@@ -1,4 +1,4 @@
-import {makeProject} from '@motion-canvas/core';
+import {makeProject} from '@efxlab/motion-canvas-core';
 
 import node from './scenes/positioning?scene';
 

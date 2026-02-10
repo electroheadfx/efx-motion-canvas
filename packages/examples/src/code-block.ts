@@ -1,4 +1,4 @@
-import {makeProject} from '@motion-canvas/core';
+import {makeProject} from '@efxlab/motion-canvas-core';
 
 import scene from './scenes/code-block?scene';
 

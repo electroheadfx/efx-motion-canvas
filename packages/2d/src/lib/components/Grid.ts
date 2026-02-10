@@ -4,7 +4,7 @@ import {
   SimpleSignal,
   Vector2Signal,
   map,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {initial, nodeName, signal, vector2Signal} from '../decorators';
 import {Shape, ShapeProps} from './Shape';
 
@@ -28,8 +28,8 @@ export interface GridProps extends ShapeProps {
  *
  * @preview
  * ```tsx editor
- * import {Grid, makeScene2D} from '@motion-canvas/2d';
- * import {all, createRef} from '@motion-canvas/core';
+ * import {Grid, makeScene2D} from '@efxlab/motion-canvas-2d';
+ * import {all, createRef} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const grid = createRef<Grid>();
@@ -59,7 +59,7 @@ export class Grid extends Shape {
    */
   @initial(80)
   @vector2Signal('spacing')
-  public declare readonly spacing: Vector2Signal<this>;
+  declare public readonly spacing: Vector2Signal<this>;
 
   /**
    * The percentage that should be clipped from the beginning of each grid line.
@@ -72,7 +72,7 @@ export class Grid extends Shape {
    */
   @initial(0)
   @signal()
-  public declare readonly start: SimpleSignal<number, this>;
+  declare public readonly start: SimpleSignal<number, this>;
 
   /**
    * The percentage that should be clipped from the end of each grid line.
@@ -85,7 +85,7 @@ export class Grid extends Shape {
    */
   @initial(1)
   @signal()
-  public declare readonly end: SimpleSignal<number, this>;
+  declare public readonly end: SimpleSignal<number, this>;
 
   public constructor(props: GridProps) {
     super(props);

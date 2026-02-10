@@ -1,11 +1,11 @@
-import {Vector2} from '@motion-canvas/core';
+import {Vector2} from '@efxlab/motion-canvas-core';
 import {
   MouseButton,
   OverlayWrapper,
   PluginOverlayConfig,
   useViewportContext,
   useViewportMatrix,
-} from '@motion-canvas/ui';
+} from '@efxlab/motion-canvas-ui';
 import {ComponentChildren} from 'preact';
 import {usePluginState} from './Provider';
 

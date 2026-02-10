@@ -1,4 +1,4 @@
-import {RendererState} from '@motion-canvas/core';
+import {RendererState} from '@efxlab/motion-canvas-core';
 import clsx from 'clsx';
 import {useEffect, useState} from 'preact/hooks';
 import {useApplication} from '../../contexts';

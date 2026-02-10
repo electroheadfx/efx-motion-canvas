@@ -21,7 +21,7 @@ export function scenesPlugin(): Plugin {
 
       /* language=typescript */
       return `\
-import {ValueDispatcher} from '@motion-canvas/core';
+import {ValueDispatcher} from '@efxlab/motion-canvas-core';
 import metaFile from './${metaFile}';
 import description from './${sceneFile}';
 description.name = '${name}';

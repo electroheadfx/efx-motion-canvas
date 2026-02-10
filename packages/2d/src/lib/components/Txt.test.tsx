@@ -1,4 +1,4 @@
-import {linear, waitFor} from '@motion-canvas/core';
+import {linear, waitFor} from '@efxlab/motion-canvas-core';
 import {describe, expect, it, vi} from 'vitest';
 import {Txt} from './Txt';
 import {TxtLeaf} from './TxtLeaf';

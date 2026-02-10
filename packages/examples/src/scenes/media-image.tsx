@@ -1,5 +1,5 @@
-import {Img, makeScene2D} from '@motion-canvas/2d';
-import {all, createRef} from '@motion-canvas/core';
+import {Img, makeScene2D} from '@efxlab/motion-canvas-2d';
+import {all, createRef} from '@efxlab/motion-canvas-core';
 
 import logoSvg from '@motion-canvas/examples/assets/logo.svg';
 

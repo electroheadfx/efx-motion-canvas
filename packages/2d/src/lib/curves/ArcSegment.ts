@@ -1,4 +1,10 @@
-import {BBox, DEG2RAD, Matrix2D, Vector2, lazy} from '@motion-canvas/core';
+import {
+  BBox,
+  DEG2RAD,
+  Matrix2D,
+  Vector2,
+  lazy,
+} from '@efxlab/motion-canvas-core';
 import {View2D} from '../components/View2D';
 import {CurvePoint} from './CurvePoint';
 import {Segment} from './Segment';

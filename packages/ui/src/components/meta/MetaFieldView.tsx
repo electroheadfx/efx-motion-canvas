@@ -1,10 +1,10 @@
-import type {MetaField} from '@motion-canvas/core';
+import type {MetaField} from '@efxlab/motion-canvas-core';
 import {
   Color,
   EnumMetaField,
   RangeMetaField,
   Vector2,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import type {FunctionComponent} from 'preact';
 import {useSubscribableValue} from '../../hooks';
 import {Separator} from '../controls';

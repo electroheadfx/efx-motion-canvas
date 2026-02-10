@@ -1,6 +1,6 @@
-import {Node, Scene2D} from '@motion-canvas/2d';
-import {SceneRenderEvent} from '@motion-canvas/core';
-import {useApplication, useCurrentScene} from '@motion-canvas/ui';
+import {Node, Scene2D} from '@efxlab/motion-canvas-2d';
+import {SceneRenderEvent} from '@efxlab/motion-canvas-core';
+import {useApplication, useCurrentScene} from '@efxlab/motion-canvas-ui';
 import {
   ReadonlySignal,
   Signal,
@@ -25,7 +25,7 @@ export interface PluginState {
 
 const PluginContext = createContext<PluginState | null>(null);
 
-export const NodeInspectorKey = '@motion-canvas/2d/node-inspector';
+export const NodeInspectorKey = '@efxlab/motion-canvas-2d/node-inspector';
 
 export function usePluginState() {
   return useContext(PluginContext)!;

@@ -6,7 +6,7 @@ import {
   SimpleSignal,
   Vector2Signal,
   unwrap,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {computed} from '../decorators/computed';
 import {initial, initializeSignals, signal} from '../decorators/signal';
 import {vector2Signal} from '../decorators/vector2Signal';
@@ -35,26 +35,26 @@ export interface GradientProps {
 export class Gradient {
   @initial('linear')
   @signal()
-  public declare readonly type: SimpleSignal<GradientType, this>;
+  declare public readonly type: SimpleSignal<GradientType, this>;
 
   @vector2Signal('from')
-  public declare readonly from: Vector2Signal<this>;
+  declare public readonly from: Vector2Signal<this>;
 
   @vector2Signal('to')
-  public declare readonly to: Vector2Signal<this>;
+  declare public readonly to: Vector2Signal<this>;
 
   @initial(0)
   @signal()
-  public declare readonly angle: SimpleSignal<number, this>;
+  declare public readonly angle: SimpleSignal<number, this>;
   @initial(0)
   @signal()
-  public declare readonly fromRadius: SimpleSignal<number, this>;
+  declare public readonly fromRadius: SimpleSignal<number, this>;
   @initial(0)
   @signal()
-  public declare readonly toRadius: SimpleSignal<number, this>;
+  declare public readonly toRadius: SimpleSignal<number, this>;
   @initial([])
   @signal()
-  public declare readonly stops: SimpleSignal<GradientStop[], this>;
+  declare public readonly stops: SimpleSignal<GradientStop[], this>;
 
   public constructor(props: GradientProps) {
     initializeSignals(this, props);

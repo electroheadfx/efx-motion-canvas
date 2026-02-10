@@ -1,5 +1,5 @@
 const UNINITIALIZED = Symbol.for(
-  '@motion-canvas/core/decorators/UNINITIALIZED',
+  '@efxlab/motion-canvas-core/decorators/UNINITIALIZED',
 );
 
 /**

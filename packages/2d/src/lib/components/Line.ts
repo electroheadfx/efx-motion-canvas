@@ -11,7 +11,7 @@ import {
   unwrap,
   useLogger,
   Vector2,
-} from '@motion-canvas/core';
+} from '@efxlab/motion-canvas-core';
 import {CurveProfile, getPolylineProfile} from '../curves';
 import {
   calculateLerpDistance,
@@ -45,7 +45,7 @@ export interface LineProps extends CurveProps {
  * @preview
  * ```tsx editor
  * // snippet Simple line
- * import {makeScene2D, Line} from '@motion-canvas/2d';
+ * import {makeScene2D, Line} from '@efxlab/motion-canvas-2d';
  *
  * export default makeScene2D(function* (view) {
  *   view.add(
@@ -64,7 +64,7 @@ export interface LineProps extends CurveProps {
  * });
  *
  * // snippet Polygon
- * import {makeScene2D, Line} from '@motion-canvas/2d';
+ * import {makeScene2D, Line} from '@efxlab/motion-canvas-2d';
  *
  * export default makeScene2D(function* (view) {
  *   view.add(
@@ -82,8 +82,8 @@ export interface LineProps extends CurveProps {
  * });
  *
  * // snippet Using signals
- * import {makeScene2D, Line} from '@motion-canvas/2d';
- * import {createSignal} from '@motion-canvas/core';
+ * import {makeScene2D, Line} from '@efxlab/motion-canvas-2d';
+ * import {createSignal} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const tip = createSignal(-150);
@@ -105,8 +105,8 @@ export interface LineProps extends CurveProps {
  * });
  *
  * // snippet Tweening points
- * import {makeScene2D, Line} from '@motion-canvas/2d';
- * import {createRef} from '@motion-canvas/core';
+ * import {makeScene2D, Line} from '@efxlab/motion-canvas-2d';
+ * import {createRef} from '@efxlab/motion-canvas-core';
  *
  * export default makeScene2D(function* (view) {
  *   const line = createRef<Line>();
@@ -242,7 +242,7 @@ export class Line extends Curve {
    */
   @initial(0)
   @signal()
-  public declare readonly radius: SimpleSignal<number, this>;
+  declare public readonly radius: SimpleSignal<number, this>;
 
   /**
    * The points of the line.
@@ -253,7 +253,7 @@ export class Line extends Curve {
    */
   @initial(null)
   @signal()
-  public declare readonly points: SimpleSignal<
+  declare public readonly points: SimpleSignal<
     SignalValue<PossibleVector2>[] | null,
     this
   >;
