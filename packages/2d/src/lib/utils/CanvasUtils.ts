@@ -1,7 +1,9 @@
 import {BBox, Color, Spacing, Vector2} from '@efxlab/motion-canvas-core';
 import {CanvasStyle, Gradient, Pattern, PossibleCanvasStyle} from '../partials';
 
-export function canvasStyleParser(style: PossibleCanvasStyle) {
+export function canvasStyleParser(
+  style: PossibleCanvasStyle,
+): Gradient | Pattern | Color | null {
   if (style === null) {
     return null;
   }

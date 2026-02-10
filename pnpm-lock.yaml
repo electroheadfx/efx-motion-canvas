@@ -84,6 +84,9 @@ importers:
       '@preact/signals':
         specifier: ^1.2.1
         version: 1.3.4(preact@10.28.3)
+      '@types/node':
+        specifier: ^25.2.3
+        version: 25.2.3
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -93,6 +96,9 @@ importers:
       preact:
         specifier: ^10.19.2
         version: 10.28.3
+      ts-patch:
+        specifier: ^3.3.0
+        version: 3.3.0
       vitest:
         specifier: ^0.34.6
         version: 0.34.6(jsdom@22.1.0)(playwright@1.58.2)(sass@1.97.3)(terser@5.46.0)
@@ -234,7 +240,7 @@ importers:
         version: 3.17.2
       '@motion-canvas/vite-plugin':
         specifier: '*'
-        version: 3.17.2(vite@4.5.14(@types/node@18.19.130)(sass@1.97.3)(terser@5.46.0))
+        version: 3.17.2(vite@4.5.14(@types/node@25.2.3)(sass@1.97.3)(terser@5.46.0))
 
   packages/examples:
     dependencies:
@@ -10449,13 +10455,13 @@ snapshots:
       '@preact/signals': 1.3.4(preact@10.28.3)
       preact: 10.28.3
 
-  '@motion-canvas/vite-plugin@3.17.2(vite@4.5.14(@types/node@18.19.130)(sass@1.97.3)(terser@5.46.0))':
+  '@motion-canvas/vite-plugin@3.17.2(vite@4.5.14(@types/node@25.2.3)(sass@1.97.3)(terser@5.46.0))':
     dependencies:
       fast-glob: 3.3.3
       follow-redirects: 1.15.11
       mime-types: 2.1.35
       source-map: 0.6.1
-      vite: 4.5.14(@types/node@18.19.130)(sass@1.97.3)(terser@5.46.0)
+      vite: 4.5.14(@types/node@25.2.3)(sass@1.97.3)(terser@5.46.0)
     transitivePeerDependencies:
       - debug
 
