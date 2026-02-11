@@ -1,6 +1,6 @@
 import {makeScene2D} from '@efxlab/motion-canvas-2d';
 import {createRef, waitFor} from '@efxlab/motion-canvas-core';
-import {Switch} from '@motion-canvas/examples/src/components/Switch';
+import {Switch} from '@efxlab/motion-canvas-examples/src/components/Switch';
 // see this import for the component ^
 
 // usage of the component:

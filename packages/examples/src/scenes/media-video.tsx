@@ -1,7 +1,7 @@
 import {Video, makeScene2D} from '@efxlab/motion-canvas-2d';
 import {createRef} from '@efxlab/motion-canvas-core';
 
-import exampleMp4 from '@motion-canvas/examples/assets/example.mp4';
+import exampleMp4 from '@efxlab/motion-canvas-examples/assets/example.mp4';
 
 export default makeScene2D(function* (view) {
   const videoRef = createRef<Video>();

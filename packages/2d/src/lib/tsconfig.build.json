@@ -3,6 +3,10 @@
   "include": ["**/*"],
   "exclude": ["**/*.test.*", "**/__tests__/**/*"],
   "compilerOptions": {
-    "jsxImportSource": "@efxlab/motion-canvas-2d/lib"
+    "jsxImportSource": "@efxlab/motion-canvas-2d/lib",
+    "paths": {
+      "@efxlab/motion-canvas-2d/lib/jsx-runtime": ["./jsx-runtime"],
+      "@efxlab/motion-canvas-2d/lib/jsx-dev-runtime": ["./jsx-dev-runtime"]
+    }
   }
 }

@@ -21,6 +21,6 @@ export function withDefaults<T extends FunctionComponent | NodeConstructor>(
   component: T,
   defaults: PropsOf<T>,
 ) {
-  const Node = component;
+  const Node = component as any;
   return (props: PropsOf<T>) => <Node {...defaults} {...props} />;
 }

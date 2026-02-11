@@ -23,9 +23,9 @@ module.exports = () => ({
           },
           innerHTML: JSON.stringify({
             imports: {
-              '@motion-canvas/core': `${core}`,
-              '@motion-canvas/2d': `${two}`,
-              '@motion-canvas/2d/jsx-runtime': `${two}`,
+              '@efxlab/motion-canvas-core': `${core}`,
+              '@efxlab/motion-canvas-2d': `${two}`,
+              '@efxlab/motion-canvas-2d/jsx-runtime': `${two}`,
             },
           }),
         },

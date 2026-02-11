@@ -1,7 +1,7 @@
 import {Img, makeScene2D} from '@efxlab/motion-canvas-2d';
 import {all, createRef} from '@efxlab/motion-canvas-core';
 
-import logoSvg from '@motion-canvas/examples/assets/logo.svg';
+import logoSvg from '@efxlab/motion-canvas-examples/assets/logo.svg';
 
 export default makeScene2D(function* (view) {
   const imageRef = createRef<Img>();
