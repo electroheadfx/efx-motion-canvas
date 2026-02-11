@@ -61,13 +61,8 @@ $states: ('initial' 'loading' 'ready' 'error');
     cursor: pointer;
   }
 
-  &.playing:not(.hover):hover {
-    cursor: none;
-  }
-
-  &.hover,
-  &.state-ready:focus-within,
-  &.state-ready:not(.playing) {
+  // Show overlay only when not playing and not auto
+  &.state-ready:not(.playing):not(.auto) {
     opacity: 1;
 
     .button {
@@ -82,8 +77,10 @@ $states: ('initial' 'loading' 'ready' 'error');
     transition: opacity 1s;
   }
 
-  &.state-ready.auto {
+  // Auto mode: overlay is always hidden and non-interactive
+  &.auto {
     opacity: 0;
+    pointer-events: none;
   }
 }
 

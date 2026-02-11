@@ -31,16 +31,12 @@ class MotionCanvasPlayer extends HTMLElement {
       'responsive',
       'aspect-ratio',
       'fullscreen',
+      'no-controls',
     ];
   }
 
   private get auto() {
-    const attr = this.getAttribute('auto');
-    return !!attr;
-  }
-
-  private get hover() {
-    return this.getAttribute('auto') === 'hover';
+    return this.hasAttribute('auto');
   }
 
   private get quality() {
@@ -83,6 +79,10 @@ class MotionCanvasPlayer extends HTMLElement {
     return this.hasAttribute('fullscreen');
   }
 
+  private get noControls() {
+    return this.hasAttribute('no-controls');
+  }
+
   private readonly root: ShadowRoot;
   private readonly canvas: HTMLCanvasElement;
   private readonly overlay: HTMLCanvasElement;
@@ -94,7 +94,6 @@ class MotionCanvasPlayer extends HTMLElement {
   private player: Player | null = null;
   private defaultSettings: PlayerSettings & StageSettings;
   private abortController: AbortController | null = null;
-  private mouseMoveId: number | null = null;
   private finished = false;
   private playing = false;
   private connected = false;
@@ -112,41 +111,45 @@ class MotionCanvasPlayer extends HTMLElement {
     this.canvas.classList.add('canvas');
     this.root.prepend(this.canvas);
 
+    // Click handler checks auto attribute dynamically (not at construction time)
     this.overlay.addEventListener('click', this.handleClick);
-    this.overlay.addEventListener('mousemove', this.handleMouseMove);
-    this.overlay.addEventListener('mouseleave', this.handleMouseLeave);
     this.button.addEventListener('mousedown', this.handleMouseDown);
     this.fullscreenButton.addEventListener('click', this.handleFullscreenClick);
 
     this.updateResponsiveMode();
     this.updateFullscreenMode();
+    this.updateControlsVisibility();
     this.setState(State.Initial);
   }
 
-  private handleMouseMove = () => {
-    if (this.mouseMoveId) {
-      clearTimeout(this.mouseMoveId);
-    }
-    if (this.hover && !this.playing) {
-      this.setPlaying(true);
-    }
-
-    this.mouseMoveId = window.setTimeout(() => {
-      this.mouseMoveId = null;
+  // Public API for external play/pause control (bypasses auto logic)
+  public play() {
+    if (this.state === State.Ready && this.player) {
+      this.player.togglePlayback(true);
+      this.playing = true;
       this.updateClass();
-    }, 2000);
-    this.updateClass();
+    }
+  }
+
+  public pause() {
+    if (this.state === State.Ready && this.player) {
+      this.player.togglePlayback(false);
+      this.playing = false;
+      this.updateClass();
+    }
+  }
+
+  public get isPlaying() {
+    return this.playing;
+  }
+
+  // Removed handleMouseMove and handleMouseLeave - no hover effects
+  private handleMouseMove = () => {
+    // Disabled - no hover effects
   };
 
   private handleMouseLeave = () => {
-    if (this.hover) {
-      this.setPlaying(false);
-    }
-    if (this.mouseMoveId) {
-      clearTimeout(this.mouseMoveId);
-      this.mouseMoveId = null;
-      this.updateClass();
-    }
+    // Disabled - no hover effects
   };
 
   private handleMouseDown = (e: MouseEvent) => {
@@ -184,20 +187,25 @@ class MotionCanvasPlayer extends HTMLElement {
     }
   }
 
+  private updateControlsVisibility() {
+    if (this.noControls) {
+      this.button.style.display = 'none';
+      this.fullscreenButton.style.display = 'none';
+      this.overlay.style.pointerEvents = 'none';
+      this.overlay.style.opacity = '0';
+    } else {
+      this.button.style.display = '';
+      this.fullscreenButton.style.display = '';
+      this.overlay.style.pointerEvents = '';
+      this.overlay.style.opacity = '';
+    }
+  }
+
   private handleClick = () => {
+    // Click to play is disabled - use external controls or auto mode
     if (this.auto) return;
-    this.handleMouseMove();
+    // In non-auto mode, clicking still toggles playback
     this.setPlaying(!this.playing);
-    this.button.animate(
-      [
-        {scale: `0.9`},
-        {
-          scale: `1`,
-          easing: 'ease-out',
-        },
-      ],
-      {duration: 200},
-    );
   };
 
   private setState(state: State) {
@@ -206,7 +214,7 @@ class MotionCanvasPlayer extends HTMLElement {
   }
 
   private setPlaying(value: boolean) {
-    if (this.state === State.Ready && (value || (this.auto && !this.hover))) {
+    if (this.state === State.Ready && (value || this.auto)) {
       this.player?.togglePlayback(true);
       this.playing = true;
     } else {
@@ -221,10 +229,9 @@ class MotionCanvasPlayer extends HTMLElement {
     this.canvas.className = `canvas state-${this.state}`;
     this.overlay.classList.toggle('playing', this.playing);
     this.overlay.classList.toggle('auto', this.auto);
-    this.overlay.classList.toggle('hover', this.mouseMoveId !== null);
 
     if (this.connected) {
-      if (this.mouseMoveId !== null || !this.playing) {
+      if (!this.playing) {
         this.dataset.overlay = '';
       } else {
         delete this.dataset.overlay;
@@ -265,7 +272,13 @@ class MotionCanvasPlayer extends HTMLElement {
     this.player = player;
     this.updateSettings();
     this.player.onRender.subscribe(this.render);
+
+    // Auto-play when ready if auto mode is enabled
+    if (this.auto) {
+      this.playing = true;
+    }
     this.player.togglePlayback(this.playing);
+
     if (import.meta.env.DEV) {
       this.player.logger.onLogged.subscribe(console.log);
     }
@@ -297,6 +310,9 @@ class MotionCanvasPlayer extends HTMLElement {
         break;
       case 'fullscreen':
         this.updateFullscreenMode();
+        break;
+      case 'no-controls':
+        this.updateControlsVisibility();
         break;
     }
   }
