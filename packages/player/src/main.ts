@@ -32,6 +32,8 @@ class MotionCanvasPlayer extends HTMLElement {
       'aspect-ratio',
       'fullscreen',
       'no-controls',
+      'background',
+      'timescale',
     ];
   }
 
@@ -83,6 +85,15 @@ class MotionCanvasPlayer extends HTMLElement {
     return this.hasAttribute('no-controls');
   }
 
+  private get background() {
+    return this.getAttribute('background') || '#222222';
+  }
+
+  private get timescale() {
+    const attr = this.getAttribute('timescale');
+    return attr ? parseFloat(attr) : 1;
+  }
+
   private readonly root: ShadowRoot;
   private readonly canvas: HTMLCanvasElement;
   private readonly overlay: HTMLCanvasElement;
@@ -98,6 +109,7 @@ class MotionCanvasPlayer extends HTMLElement {
   private playing = false;
   private connected = false;
   private stage = new Stage();
+  private resizeObserver: ResizeObserver | null = null;
 
   public constructor() {
     super();
@@ -201,6 +213,16 @@ class MotionCanvasPlayer extends HTMLElement {
     }
   }
 
+  private updateBackground() {
+    this.canvas.style.backgroundColor = this.background;
+  }
+
+  private updateTimescale() {
+    if (this.player) {
+      this.player.playback.speed = this.timescale;
+    }
+  }
+
   private handleClick = () => {
     // Click to play is disabled - use external controls or auto mode
     if (this.auto) return;
@@ -271,6 +293,8 @@ class MotionCanvasPlayer extends HTMLElement {
     this.project = project;
     this.player = player;
     this.updateSettings();
+    this.updateBackground();
+    this.updateTimescale();
     this.player.onRender.subscribe(this.render);
 
     // Auto-play when ready if auto mode is enabled
@@ -314,6 +338,12 @@ class MotionCanvasPlayer extends HTMLElement {
       case 'no-controls':
         this.updateControlsVisibility();
         break;
+      case 'background':
+        this.updateBackground();
+        break;
+      case 'timescale':
+        this.updateTimescale();
+        break;
     }
   }
 
@@ -321,12 +351,22 @@ class MotionCanvasPlayer extends HTMLElement {
     this.connected = false;
     this.player?.deactivate();
     this.player?.onRender.unsubscribe(this.render);
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
   }
 
   private connectedCallback() {
     this.connected = true;
     this.player?.activate();
     this.player?.onRender.subscribe(this.render);
+
+    // Set up resize observer for responsive mode
+    if (this.responsive && !this.resizeObserver) {
+      this.resizeObserver = new ResizeObserver(() => {
+        this.updateSettings();
+      });
+      this.resizeObserver.observe(this);
+    }
   }
 
   private render = async () => {
@@ -342,15 +382,31 @@ class MotionCanvasPlayer extends HTMLElement {
     let width = this.width;
     let height = this.height;
 
-    // Apply aspect ratio if specified and responsive mode is enabled
-    if (this.responsive && this.aspectRatio) {
-      const currentRatio = width / height;
-      if (currentRatio > this.aspectRatio) {
-        // Width is too large, adjust based on height
-        width = height * this.aspectRatio;
+    // In responsive mode, determine the coordinate space
+    if (this.responsive) {
+      if (this.aspectRatio) {
+        // For aspect-ratio variants, use a standard resolution coordinate space.
+        // Scenes are designed for a base dimension of 1080px on the smaller side.
+        // CSS will scale the canvas to fit the container.
+        const BASE = 1080;
+        if (this.aspectRatio >= 1) {
+          // Landscape or square: height = 1080, width from ratio
+          height = BASE;
+          width = Math.round(BASE * this.aspectRatio);
+        } else {
+          // Portrait: width = 1080, height from ratio
+          width = BASE;
+          height = Math.round(BASE / this.aspectRatio);
+        }
       } else {
-        // Height is too large, adjust based on width
-        height = width / this.aspectRatio;
+        // No aspect ratio (fullwindow): use container pixel dimensions
+        const rect = this.getBoundingClientRect();
+        const containerWidth = rect.width;
+        const containerHeight = rect.height;
+        if (containerWidth > 0 && containerHeight > 0) {
+          width = containerWidth;
+          height = containerHeight;
+        }
       }
     }
 
