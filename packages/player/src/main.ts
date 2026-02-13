@@ -186,8 +186,18 @@ class MotionCanvasPlayer extends HTMLElement {
   private updateResponsiveMode() {
     if (this.responsive) {
       this.dataset.responsive = '';
+      // Set up ResizeObserver when responsive is enabled
+      // (attribute may be set after connectedCallback)
+      if (this.connected && !this.resizeObserver) {
+        this.resizeObserver = new ResizeObserver(() => {
+          this.updateSettings();
+        });
+        this.resizeObserver.observe(this);
+      }
     } else {
       delete this.dataset.responsive;
+      this.resizeObserver?.disconnect();
+      this.resizeObserver = null;
     }
   }
 
@@ -379,35 +389,44 @@ class MotionCanvasPlayer extends HTMLElement {
   };
 
   private updateSettings() {
+    // Guard: player/stage may not be ready yet (e.g. aspect-ratio set before src loads)
+    if (!this.player || !this.defaultSettings) return;
+
     let width = this.width;
     let height = this.height;
 
-    // In responsive mode, determine the coordinate space
+    // In responsive mode, compute canvas size from container dimensions
     if (this.responsive) {
-      if (this.aspectRatio) {
-        // For aspect-ratio variants, use a standard resolution coordinate space.
-        // Scenes are designed for a base dimension of 1080px on the smaller side.
-        // CSS will scale the canvas to fit the container.
-        const BASE = 1080;
-        if (this.aspectRatio >= 1) {
-          // Landscape or square: height = 1080, width from ratio
-          height = BASE;
-          width = Math.round(BASE * this.aspectRatio);
+      const rect = this.getBoundingClientRect();
+      const cw = rect.width;
+      const ch = rect.height;
+
+      if (this.aspectRatio && cw > 0 && ch > 0) {
+        const containerRatio = cw / ch;
+        if (containerRatio > this.aspectRatio) {
+          // Container is wider than content — fit to height
+          height = Math.round(ch);
+          width = Math.round(ch * this.aspectRatio);
         } else {
-          // Portrait: width = 1080, height from ratio
-          width = BASE;
-          height = Math.round(BASE / this.aspectRatio);
+          // Container is taller or exact — fit to width
+          width = Math.round(cw);
+          height = Math.round(cw / this.aspectRatio);
         }
-      } else {
+      } else if (cw > 0 && ch > 0) {
         // No aspect ratio (fullwindow): use container pixel dimensions
-        const rect = this.getBoundingClientRect();
-        const containerWidth = rect.width;
-        const containerHeight = rect.height;
-        if (containerWidth > 0 && containerHeight > 0) {
-          width = containerWidth;
-          height = containerHeight;
-        }
+        width = Math.round(cw);
+        height = Math.round(ch);
       }
+
+      // Explicitly set canvas CSS size + center via inline styles.
+      // This overrides any Shadow DOM stylesheet rules (.canvas width:100%)
+      // and avoids relying on CSS `width:auto` intrinsic sizing.
+      this.canvas.style.width = `${width}px`;
+      this.canvas.style.height = `${height}px`;
+      this.canvas.style.position = 'absolute';
+      this.canvas.style.left = '50%';
+      this.canvas.style.top = '50%';
+      this.canvas.style.transform = 'translate(-50%, -50%)';
     }
 
     const settings = {
