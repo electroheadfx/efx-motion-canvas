@@ -64,28 +64,71 @@ export default makeScene2D(function* (view) {
 
 ## Responsive Hooks
 
+The responsive package provides several hooks for ratio-independent animations:
+
+### useResponsive<T>(config): T
+
+Resolves properties with cascading overrides:
+`base → ratioClass → specificRatio`
+
 ```typescript
-import {
-  useRatio, // Get current ratio info
-  useResponsive, // Get ratio-specific config
-  useRatioEffect, // Run code on ratio change
-  useRatioElement, // Create ratio-responsive elements
-} from '@efxlab/motion-canvas-responsive';
-
-// Get current ratio
-const {ratio, ratioClass, width, height} = useRatio();
-
-// Ratio-specific config with class overrides
-const styles = useResponsive({
-  base: {fontSize: 80, scale: 1},
-  portrait: {fontSize: 100}, // Applied when ratioClass === 'portrait'
-  '9x16': {fontSize: 100}, // Applied when ratio === '9x16'
+const props = useResponsive({
+  base: {x: 0.1, y: 0.2, size: 100},
+  portrait: {x: 0, y: 0.15},
+  '9x16': {size: 120},
 });
+// In 9x16: { x: 0, y: 0.15, size: 120 }
+```
+
+### useRatio(): ResponsiveLayout
+
+Returns current layout with ratio info:
+
+```typescript
+const layout = useRatio();
+// layout.ratio → '9x16'
+// layout.isPortrait → true
+// layout.sz(64), layout.sx(0.5) → pixel values
+```
+
+### useRatioEffect(ratio, callback)
+
+Conditional effect for specific ratios:
+
+```typescript
+useRatioEffect('portrait', () => {
+  view.add(<PortraitOverlay />)
+  return () => overlay.remove()
+})
+```
+
+### useRatioElement(config)
+
+Conditional rendering:
+
+```typescript
+const mobileElement = useRatioElement({
+  only: ['9x16', 'portrait'],
+  element: () => <MobileWatermark />
+})
+```
+
+### useResponsiveAnimation(config)
+
+Animation parameter overrides:
+
+```typescript
+const anim = useResponsiveAnimation({
+  base: {duration: 0.5, easing: easeInOut},
+  portrait: {duration: 0.3},
+});
+
+yield * element.opacity(1, anim.duration, anim.easing);
 ```
 
 ## Helper Functions
 
-Position, scale, and layout helpers:
+Position, scale, rotation, visibility, color, path, and filter helpers:
 
 ```typescript
 import {
@@ -97,18 +140,152 @@ import {
   path,
   filter,
 } from '@efxlab/motion-canvas-responsive';
+```
 
-// Position based on ratio
+### Position Helpers
+
+```typescript
+// Off-screen (element fully outside view)
+offLeft(margin); // x = -viewWidth/2 - elementWidth/2 - margin
+offRight(margin); // x = +viewWidth/2 + elementWidth/2 + margin
+offTop(margin); // y = -viewHeight/2 - elementHeight/2 - margin
+offBottom(margin); // y = +viewHeight/2 + elementHeight/2 + margin
+
+// Edge-aligned (element inside view, touching edge)
+fromLeft(margin); // Element's left edge at view's left edge + margin
+fromRight(margin); // Element's right edge at view's right edge - margin
+fromTop(margin); // Element's top edge at view's top edge + margin
+fromBottom(margin); // Element's bottom edge at view's bottom edge - margin
+
+// Usage with responsive config
 const pos = position({
   base: {x: 100, y: 50},
   portrait: {x: 50, y: 100},
 });
+```
 
-// Scale based on ratio
-const sc = scale({
-  base: 1,
-  '9x16': 0.8,
-});
+### Rotation Helpers
+
+```typescript
+rotate: {
+  spin(turns); // Full rotations: spin(2) = 720deg
+  spinCW(turns); // Clockwise only
+  spinCCW(turns); // Counter-clockwise only
+
+  // Pivot offset (rotation center)
+  pivot: {
+    center(); // Default: element center
+    topLeft();
+    topRight();
+    bottomLeft();
+    bottomRight();
+    custom(x, y); // Offset from center in pixels
+  }
+}
+
+// Usage
+element.pivot(rotate.pivot.topLeft());
+yield * element.rotation(rotate.spin(1), 1.5);
+```
+
+### Scale Helpers
+
+```typescript
+scale: {
+  from(value); // scale.from(0) = start invisible
+  to(value); // scale.to(2) = double size
+  pop(); // Quick bounce: 1 -> 1.1 -> 1
+  pulse(intensity); // Pulsing scale animation
+}
+
+transform: {
+  scaleX(value); // Horizontal stretch
+  scaleY(value); // Vertical stretch
+  skewX(degrees); // Horizontal skew
+  skeY(degrees); // Vertical skew
+}
+
+// Usage
+yield * element.scale(scale.from(0).to(1), 1);
+```
+
+### Visibility Helpers
+
+```typescript
+opacity: {
+  fadeIn(duration);
+  fadeOut(duration);
+  flash(times); // Quick flash effect
+  blink(interval); // Repeating blink
+}
+
+// Usage
+yield * element.opacity(opacity.fadeIn(1));
+```
+
+### Color/Style Helpers
+
+```typescript
+color: {
+  tint(from, to);
+  highlight(color); // Quick color flash
+  gradient(colors); // Cycle through colors
+}
+
+stroke: {
+  draw(duration); // Line drawing animation
+  dash(length, gap);
+}
+```
+
+### Motion Path Helpers
+
+```typescript
+path: {
+  arc(startAngle, endAngle, radius);
+  bezier(controlPoints);
+  orbit(centerX, centerY, radius);
+  wave(amplitude, frequency);
+  shake(intensity); // Random shake
+  wobble(intensity); // Organic wobble
+}
+
+// Usage
+yield * path.orbit(0, 0, 200, 2);
+```
+
+### Filter Helpers
+
+```typescript
+filter: {
+  blur(from, to);
+  brightness(value);
+  contrast(value);
+  saturate(value);
+  grayscale(value); // 0-1
+}
+```
+
+### Combined Example
+
+```typescript
+const layout = useRatio();
+
+// Element slides in from left, rotates, and scales up
+yield *
+  all(
+    element.x(offLeft(0), 0),
+    element.x(fromRight(50), 1.5, easeOutCubic),
+    element.rotation(rotate.spin(1), 1.5),
+    element.scale(scale.from(0).to(1), 1),
+  );
+
+// Rotate around top-left corner
+element.pivot(rotate.pivot.topLeft());
+yield * element.rotation(90, 0.5);
+
+// Path animation - orbit around center
+yield * path.orbit(0, 0, 200, 2);
 ```
 
 ## Custom Ratio Registration
