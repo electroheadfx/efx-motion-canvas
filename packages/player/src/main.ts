@@ -34,6 +34,7 @@ class MotionCanvasPlayer extends HTMLElement {
       'no-controls',
       'background',
       'timescale',
+      'ratio',
     ];
   }
 
@@ -94,6 +95,10 @@ class MotionCanvasPlayer extends HTMLElement {
     return attr ? parseFloat(attr) : 1;
   }
 
+  private get ratio() {
+    return this.getAttribute('ratio') || '16x9';
+  }
+
   private readonly root: ShadowRoot;
   private readonly canvas: HTMLCanvasElement;
   private readonly overlay: HTMLCanvasElement;
@@ -110,6 +115,7 @@ class MotionCanvasPlayer extends HTMLElement {
   private connected = false;
   private stage = new Stage();
   private resizeObserver: ResizeObserver | null = null;
+  private currentRatio = '16x9';
 
   public constructor() {
     super();
@@ -153,6 +159,22 @@ class MotionCanvasPlayer extends HTMLElement {
 
   public get isPlaying() {
     return this.playing;
+  }
+
+  public setRatio(ratio: string) {
+    this.currentRatio = ratio;
+    this.setAttribute('ratio', ratio);
+    this.handleRatioChange();
+  }
+
+  public getRatio(): string {
+    return this.currentRatio;
+  }
+
+  private handleRatioChange() {
+    if (this.player && this.responsive) {
+      this.updateSettings();
+    }
   }
 
   // Removed handleMouseMove and handleMouseLeave - no hover effects
@@ -353,6 +375,10 @@ class MotionCanvasPlayer extends HTMLElement {
         break;
       case 'timescale':
         this.updateTimescale();
+        break;
+      case 'ratio':
+        this.currentRatio = newValue || '16x9';
+        this.handleRatioChange();
         break;
     }
   }

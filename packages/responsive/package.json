@@ -1,0 +1,39 @@
+{
+  "name": "@efxlab/motion-canvas-responsive",
+  "version": "3.17.2",
+  "description": "Ratio-independent animation system for Motion Canvas",
+  "author": "motion-canvas",
+  "homepage": "https://motioncanvas.io/",
+  "bugs": "https://github.com/motion-canvas/motion-canvas/issues",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "dev": "ts-patch install -s && tsc -w",
+    "build": "ts-patch install -s && tsc",
+    "bundle": "rollup -c rollup.config.mjs",
+    "test": "vitest"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electroheadfx/efx-motion-canvas.git"
+  },
+  "files": [
+    "lib",
+    "src",
+    "tsconfig.project.json"
+  ],
+  "devDependencies": {
+    "@efxlab/motion-canvas-internal": "workspace:*",
+    "@preact/signals": "^1.2.1",
+    "@types/node": "^25.2.3",
+    "jsdom": "^22.1.0",
+    "preact": "10.19.3",
+    "ts-patch": "^3.3.0",
+    "vitest": "^0.34.6"
+  },
+  "dependencies": {
+    "@efxlab/motion-canvas-core": "workspace:*"
+  }
+}

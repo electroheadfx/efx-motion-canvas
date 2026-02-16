@@ -358,6 +358,16 @@ export abstract class GeneratorScene<T>
     return this.cached;
   }
 
+  private responsiveSetupCallback?: (size: Vector2) => void;
+
+  /**
+   * Set a callback to be called when the scene executes.
+   * @param callback - The callback to invoke with the scene size.
+   */
+  public setResponsiveSetup(callback: (size: Vector2) => void) {
+    this.responsiveSetupCallback = callback;
+  }
+
   /**
    * Invoke the given callback in the context of this scene.
    *
@@ -371,6 +381,11 @@ export abstract class GeneratorScene<T>
     let result: T;
     startScene(this);
     startPlayback(this.playback);
+
+    if (this.responsiveSetupCallback) {
+      this.responsiveSetupCallback(this.size);
+    }
+
     try {
       result = callback();
     } finally {
