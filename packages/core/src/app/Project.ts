@@ -71,6 +71,23 @@ export interface ProjectSettings {
    * @experimental
    */
   experimentalFeatures?: boolean;
+
+  /**
+   * Responsive configuration for ratio-independent animations.
+   *
+   * @example
+   * ```ts
+   * responsive: {
+   *   ratios: {
+   *     'cinema': { aspect: '21:9' },
+   *     'story': { aspect: '9:18' },
+   *   }
+   * }
+   * ```
+   */
+  responsive?: {
+    ratios?: Record<string, {aspect: string; ratioClass?: string}>;
+  };
 }
 
 export interface Versions {
@@ -91,6 +108,9 @@ export interface Project {
   variables?: Record<string, unknown>;
   versions: Versions;
   experimentalFeatures: boolean;
+  responsive?: {
+    ratios?: Record<string, {aspect: string; ratioClass?: string}>;
+  };
 }
 
 export function makeProject(settings: ProjectSettings) {

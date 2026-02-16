@@ -4,6 +4,11 @@ export type RatioClass = 'landscape' | 'portrait' | 'square' | 'ultrawide';
 
 export interface ResponsiveRatioConfig {
   aspect: string;
+  ratioClass?: RatioClass;
+}
+
+export interface ResponsiveRatiosConfig {
+  [ratioId: string]: ResponsiveRatioConfig;
 }
 
 export interface ResponsiveConfig<T> {

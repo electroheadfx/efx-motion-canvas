@@ -111,6 +111,48 @@ const sc = scale({
 });
 ```
 
+## Custom Ratio Registration
+
+Register custom aspect ratios beyond the built-in defaults:
+
+```typescript
+import {
+  registerCustomRatios,
+  useResponsive,
+} from '@efxlab/motion-canvas-responsive';
+
+// Register custom ratios
+registerCustomRatios({
+  cinema: {aspect: '21:9'},
+  story: {aspect: '9:18'},
+  portrait2: {aspect: '3:4'},
+});
+
+// Use custom ratios in your scene
+const config = useResponsive({
+  base: {fontSize: 80},
+  cinema: {fontSize: 100}, // Custom ratio
+  story: {fontSize: 90}, // Custom ratio
+});
+```
+
+### Built-in Ratios
+
+| Ratio ID     | Aspect | Class     |
+| ------------ | ------ | --------- |
+| `16x9`       | 16:9   | landscape |
+| `9x16`       | 9:16   | portrait  |
+| `4x3`        | 4:3    | landscape |
+| `1x1`        | 1:1    | square    |
+| `fullwindow` | auto   | computed  |
+
+### Ratio Class Detection
+
+- `ar > 2` → `ultrawide`
+- `ar > 1` → `landscape`
+- `ar === 1` → `square`
+- `ar < 1` → `portrait`
+
 ## Player API
 
 ```typescript
